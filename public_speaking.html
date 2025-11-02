@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Public Speaking Certification (C.PS) — Bicara Official</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root {
+      --brand-blue: #0A2E5D;
+      --brand-gold: #FFD700;
+      --brand-red: #C0392B;
+      --brand-light: #7a7dac;
+      --brand-gray: #ffffff;
+      --brand-dark-text: #171717;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Poppins', sans-serif; background: var(--brand-light); color: var(--brand-dark-text); }
+    .font-montserrat { font-family: 'Montserrat', sans-serif; }
+    .bg-brand-blue { background-color: var(--brand-blue); }
+    .text-brand-blue { color: var(--brand-blue); }
+    .bg-brand-gold { background-color: var(--brand-gold); }
+    .text-brand-gold { color: var(--brand-gold); }
+    .bg-brand-red { background-color: var(--brand-red); }
+    .text-brand-red { color: var(--brand-red); }
+    .bg-brand-gray { background-color: var(--brand-gray); }
+
+    /* Reveal */
+    .reveal { opacity: 0; transform: translateY(20px); transition: opacity .6s ease-out, transform .6s ease-out; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* Header transition */
+    #header { transition: background-color .4s ease, box-shadow .4s ease, color .4s ease; }
+    #header.scrolled { background-color: rgba(255, 255, 255, 0.95); backdrop-filter: blur(8px); box-shadow: 0 4px 12px rgba(0,0,0,.06); }
+
+    /* members card photo */
+    .photo-cover { aspect-ratio: 4/3; object-fit: cover; width: 100%; border-radius: .5rem; }
+
+    /* testimonial items */
+    .testimonial-item { transition: opacity .5s ease-in-out; position: absolute; width: 100%; }
+    .testimonial-item:not(.active) { opacity: 0; pointer-events: none; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header id="header" class="fixed top-0 left-0 right-0 z-50">
+    <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="index.html" class="logo-text flex items-center gap-3">
+        <img src="LOGO.png" alt="Logo Bicara" class="h-12">
+        
+      </a>
+
+      <nav class="hidden md:flex items-center space-x-6">
+        <a href="index.html" class="nav-link">home</a>
+        <a href="#cps-hero" class="nav-link">Program</a>
+        <a href="#keanggotaan" class="nav-link">Keanggotaan</a>
+        <a href="#testimoni" class="nav-link">Testimoni</a>
+        <a href="#contact" class="nav-link bg-gradient-to-r from-orange-500 to-red-600 text-white px-4 py-2 rounded-full">Hubungi</a>
+      </nav>
+
+      <div class="md:hidden">
+        <button id="mobile-menu-button" class="focus:outline-none p-2">
+          <i data-lucide="menu" class="w-7 h-7"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="hidden md:hidden bg-brand-light pb-4">
+      <a href="#cps-hero" class="block text-center py-3 text-gray-700 hover:bg-gray-100">Program</a>
+      <a href="#keanggotaan" class="block text-center py-3 text-gray-700 hover:bg-gray-100">Keanggotaan</a>
+      <a href="#testimoni" class="block text-center py-3 text-gray-700 hover:bg-gray-100">Testimoni</a>
+      <a href="#contact" class="block text-center py-3 text-gray-700 hover:bg-gray-100">Hubungi</a>
+    </div>
+  </header>
+
+  <!-- spacer so content not hidden by header -->
+  <div class="h-20"></div>
+
+  <main>
+
+    <!-- SECTION 1: Program (Hero) -->
+    <section id="cps-hero"
+      class="relative h-screen flex flex-col items-center justify-center text-white text-center bg-cover bg-center"
+      style="
+        background-image:
+          linear-gradient(rgba(0,30,78,0.65), rgba(46,0,0,0.65)),
+          url('FotoCPS.jpg');
+        background-size: cover;
+        background-position: center;
+      ">
+      <div class="relative z-10 container mx-auto px-6">
+        <!-- Logo -->
+        <img src="foto/3.ps.png" alt="Logo CPS" class="mx-auto mb-6 w-24 md:w-32 lg:w-40 reveal" style="transition-delay:.1s">
+        <!-- Title -->
+        <h1 class="text-4xl md:text-6xl font-extrabold font-montserrat leading-tight mb-6 reveal" style="transition-delay:.2s">
+          <span class="text-white">Public Speaking</span><br>
+          <span class="text-yellow-400">Certification (C.PS)</span>
+        </h1>
+        <!-- Description -->
+        <p class="text-lg md:text-xl max-w-3xl mx-auto mb-10 text-gray-200 leading-relaxed reveal" style="transition-delay:.3s">
+          Program sertifikasi intensif untuk menjadi pembicara profesional yang diakui secara nasional.
+          Kurikulum mendalam, praktek langsung, mentoring, dan portofolio akhir akan membawamu ke level berikutnya.
+        </p>
+
+        
+      </div>
+    </section>
+
+    <!-- SECTION 2: Keanggotaan (Members CPS) -->
+    <section id="keanggotaan" class="py-12 bg-brand-gray">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-8">
+          <h2 class="text-2xl md:text-3xl font-bold text-brand-blue">Keanggotaan — Public Speaking Certification (C.PS)</h2>
+          <p class="text-gray-600 mt-2 max-w-2xl mx-auto">Daftar peserta</p>
+        </div>
+
+        <!-- Controls -->
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
+          <div class="flex gap-3 items-center">
+            <input id="searchInput" type="search" placeholder="Cari nama atau ID peserta..." class="px-4 py-2 rounded-lg border w-72 focus:outline-none focus:ring-2 focus:ring-brand-blue" />
+            <select id="filterStatus" class="px-3 py-2 rounded-lg border focus:outline-none">
+              <option value="">Semua Status</option>
+              <option value="aktif">Aktif</option>
+              <option value="lulus">Lulus</option>
+              <option value="tidak-lulus">Tidak Lulus</option>
+            </select>
+          </div>
+
+          
+        </div>
+
+        <!-- Grid -->
+        <div id="membersGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+        <div id="emptyState" class="hidden text-center py-12 text-gray-500">Tidak ada peserta yang ditemukan.</div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: Testimoni -->
+    <section id="testimoni" class="py-20 bg-brand-blue text-white">
+      <div class="container mx-auto px-6">
+        <div class="text-center mb-10">
+          <h2 class="text-3xl md:text-4xl font-bold font-montserrat reveal">Kisah Sukses Alumni</h2>
+          <p class="text-gray-200 mt-3 max-w-2xl mx-auto reveal">Mereka sudah merasakan transformasi. Berikut sebagian cerita mereka.</p>
+        </div>
+
+        <div class="relative max-w-3xl mx-auto h-80 reveal" style="min-height: 240px;">
+          <div id="testimonial-slider" class="relative h-full">
+            <div class="testimonial-item active">
+              <div class="bg-blue-900/30 backdrop-blur-md p-8 rounded-2xl text-center border border-white/20">
+                <img src="https://placehold.co/100x100/FFD700/0A2E5D?text=AK" alt="Foto Alumni 1" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-brand-gold">
+                <p class="text-lg italic mb-4">"Program ini mengubah cara saya tampil. Kini saya lebih percaya diri di depan audiens."</p>
+                <h4 class="font-bold text-xl text-brand-gold">Aisha Kamilia</h4>
+                <p class="text-gray-300">Alumni C.PS 2024</p>
+              </div>
+            </div>
+
+            <div class="testimonial-item">
+              <div class="bg-blue-900/30 backdrop-blur-md p-8 rounded-2xl text-center border border-white/20">
+                <img src="https://placehold.co/100x100/FFD700/0A2E5D?text=BS" alt="Foto Alumni 2" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-brand-gold">
+                <p class="text-lg italic mb-4">"Mentornya bagus, materinya sistematis. Saya dapat pekerjaan setelah ikut program."</p>
+                <h4 class="font-bold text-xl text-brand-gold">Budi Santoso</h4>
+                <p class="text-gray-300">Alumni C.PS 2023</p>
+              </div>
+            </div>
+
+            <div class="testimonial-item">
+              <div class="bg-blue-900/30 backdrop-blur-md p-8 rounded-2xl text-center border border-white/20">
+                <img src="https://placehold.co/100x100/FFD700/0A2E5D?text=CL" alt="Foto Alumni 3" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-brand-gold">
+                <p class="text-lg italic mb-4">"Bukan sekadar teori. Banyak praktek panggung yang membuat saya matang."</p>
+                <h4 class="font-bold text-xl text-brand-gold">Citra Lestari</h4>
+                <p class="text-gray-300">Alumni C.PS 2022</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- slider controls -->
+          <button id="prev-testimonial" class="absolute top-1/2 left-0 -translate-y-1/2 -translate-x-6 md:-translate-x-12 bg-white/20 p-2 rounded-full hover:bg-white/40 transition-colors">
+            <i data-lucide="chevron-left" class="w-6 h-6 text-white"></i>
+          </button>
+          <button id="next-testimonial" class="absolute top-1/2 right-0 -translate-y-1/2 translate-x-6 md:translate-x-12 bg-white/20 p-2 rounded-full hover:bg-white/40 transition-colors">
+            <i data-lucide="chevron-right" class="w-6 h-6 text-white"></i>
+          </button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal Keanggotaan -->
+  <div id="modal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50">
+    <div class="bg-white rounded-xl max-w-2xl w-full mx-4 overflow-hidden">
+      <div class="flex items-center justify-between p-4 border-b">
+        <h3 id="modalName" class="text-lg font-semibold"></h3>
+        <button id="closeModal" class="p-1.5"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+      <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="md:col-span-1">
+          <img id="modalPhoto" src="" alt="Foto Peserta" class="w-full rounded-md object-cover h-56">
+        </div>
+        <div class="md:col-span-2">
+          <dl class="grid grid-cols-1 gap-3 text-gray-700">
+            <div><dt class="font-semibold">Nama</dt><dd id="modalNamaFull"></dd></div>
+            <div><dt class="font-semibold">NIM / ID</dt><dd id="modalId"></dd></div>
+            <div><dt class="font-semibold">Program</dt><dd id="modalProgram"></dd></div>
+            <div><dt class="font-semibold">Status</dt><dd id="modalStatus"></dd></div>
+            <div><dt class="font-semibold">Kota</dt><dd id="modalCity"></dd></div>
+            <div><dt class="font-semibold">Email</dt><dd id="modalEmail"></dd></div>
+            <div><dt class="font-semibold">Telepon</dt><dd id="modalPhone"></dd></div>
+            <div><dt class="font-semibold">Catatan</dt><dd id="modalNotes"></dd></div>
+          </dl>
+        </div>
+      </div>
+      <div class="flex justify-end gap-3 p-4 border-t">
+        <a id="modalContactBtn" href="#" class="bg-brand-blue text-white px-4 py-2 rounded-md">Hubungi</a>
+        <button id="modalCloseBtn" class="px-4 py-2 rounded-md border">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer id="contact" class="bg-brand-blue text-white pt-12 pb-8 mt-12">
+    <div class="container mx-auto px-6">
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div class="lg:col-span-2">
+          <h3 class="text-2xl font-bold font-montserrat mb-4"><img src="LOGO.png" alt="logo" class="h-12 inline"></h3>
+          <p class="text-gray-200 leading-relaxed max-w-md">Website Resmi Bicara Official Indonesia — Lembaga Pelatihan Public Speaking & Pengembangan Diri. Berkontribusi dari Sabang sampai Merauke.</p>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-3">Jelajahi</h4>
+          <ul class="space-y-2 text-gray-200">
+            <li><a href="#cps-hero" class="hover:text-brand-gold">Program</a></li>
+            <li><a href="#keanggotaan" class="hover:text-brand-gold">Keanggotaan</a></li>
+            <li><a href="#testimoni" class="hover:text-brand-gold">Testimoni</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4 class="font-semibold mb-3">Hubungi Kami</h4>
+          <ul class="space-y-2 text-gray-200">
+            <li class="flex items-center gap-2"><i data-lucide="phone" class="w-5 h-5 text-brand-gold"></i> <span>0822 2745 5736</span></li>
+            <li class="flex items-center gap-2"><i data-lucide="instagram" class="w-5 h-5 text-brand-gold"></i> <span>@bicaraofficial</span></li>
+            <li class="flex items-center gap-2"><i data-lucide="mail" class="w-5 h-5 text-brand-gold"></i> <span>bicaraofficial17@gmail.com</span></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="border-t border-white/20 mt-8 pt-6 text-center text-gray-200">
+        &copy; 2025 Bicara Official Indonesia. Didesain untuk Generasi Emas.
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts: members rendering, modal, testimonial, header, reveal -->
+  <script>
+    // init lucide icons
+    try { lucide.createIcons(); } catch(e){}
+
+    // Header scroll & mobile menu
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 60) header.classList.add('scrolled'); else header.classList.remove('scrolled');
+    });
+    const mobileMenuButton = document.getElementById('mobile-menu-button');
+    const mobileMenu = document.getElementById('mobile-menu');
+    mobileMenuButton?.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+
+    // Reveal on scroll
+    const revealElements = document.querySelectorAll('.reveal');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+    revealElements.forEach(el => revealObserver.observe(el));
+
+    /* -------------------------------
+       MEMBERS (CPS) - data & render
+       ------------------------------- */
+    const membersData = [
+      { id: "CPS-001", name: "Aisha Kamilia", program: "Public Speaking Certification (C.PS)", status: "aktif", city: "Medan", email: "aisha@example.com", phone: "+62 812-0000-0001", photo: "foto/keanggotaan_PS/2.png", notes: "Peserta unggulan batch 1" },
+      { id: "CPS-002", name: "Tyas Hermawan Putra", program: "Public Speaking Certification (C.PS)", status: "lulus", city: "Jakarta", email: "tyas@example.com", phone: "+62 812-0000-0002", photo: "foto/keanggotaan_PS/1.png", notes: "Lulus dengan predikat sangat baik" },
+      { id: "CPS-003", name: "Citra Lestari", program: "Public Speaking Certification (C.PS)", status: "aktif", city: "Bandung", email: "citra@example.com", phone: "+62 812-0000-0003", photo: "foto/keanggotaan_PS/3.png", notes: "" }
+      // tambah peserta CPS lain di sini...
+    ];
+
+    const cpsOnly = membersData.filter(m => m.program === "Public Speaking Certification (C.PS)");
+    const grid = document.getElementById('membersGrid');
+    const emptyState = document.getElementById('emptyState');
+
+    function createCard(member) {
+      const a = document.createElement('article');
+      a.className = 'bg-white rounded-xl p-4 shadow hover:shadow-lg transition cursor-pointer flex flex-col';
+      a.tabIndex = 0;
+
+      const imgWrap = document.createElement('div');
+      imgWrap.className = 'mb-3 overflow-hidden rounded-md';
+      const img = document.createElement('img');
+      img.src = member.photo;
+      img.alt = member.name;
+      img.className = 'photo-cover';
+      imgWrap.appendChild(img);
+
+      const name = document.createElement('h3');
+      name.className = 'font-semibold text-lg text-brand-blue mb-1';
+      name.textContent = member.name;
+
+      const meta = document.createElement('p');
+      meta.className = 'text-sm text-gray-600 mb-2';
+      meta.textContent = `${member.program} • ${member.city}`;
+
+      const statusWrap = document.createElement('div');
+      statusWrap.className = 'mt-auto flex items-center justify-between gap-2';
+
+      const badge = document.createElement('span');
+      badge.className = 'inline-flex items-center px-2 py-1 rounded-full text-xs font-medium';
+      if(member.status === 'aktif') { badge.classList.add('bg-green-100','text-green-800'); badge.textContent = 'Aktif'; }
+      else if(member.status === 'lulus') { badge.classList.add('bg-indigo-100','text-indigo-800'); badge.textContent = 'Lulus'; }
+      else { badge.classList.add('bg-red-100','text-red-800'); badge.textContent = 'Tidak Lulus'; }
+
+      const viewBtn = document.createElement('button');
+      viewBtn.className = 'text-sm text-brand-blue underline';
+      viewBtn.textContent = 'Lihat Detail';
+      viewBtn.addEventListener('click', (e) => { e.stopPropagation(); openModal(member); });
+
+      statusWrap.appendChild(badge);
+      statusWrap.appendChild(viewBtn);
+
+      a.appendChild(imgWrap);
+      a.appendChild(name);
+      a.appendChild(meta);
+      a.appendChild(statusWrap);
+
+      a.addEventListener('click', () => openModal(member));
+      a.addEventListener('keydown', (ev) => { if(ev.key === 'Enter') openModal(member); });
+
+      return a;
+    }
+
+    function renderList(data) {
+      grid.innerHTML = '';
+      if(!data.length) { emptyState.classList.remove('hidden'); grid.classList.add('hidden'); return; }
+      emptyState.classList.add('hidden'); grid.classList.remove('hidden');
+      const frag = document.createDocumentFragment();
+      data.forEach(m => frag.appendChild(createCard(m)));
+      grid.appendChild(frag);
+    }
+
+    // initial render
+    renderList(cpsOnly);
+
+    // search & filter
+    const searchInput = document.getElementById('searchInput');
+    const filterStatus = document.getElementById('filterStatus');
+
+    function applyFilters() {
+      const q = searchInput.value.trim().toLowerCase();
+      const stat = filterStatus.value;
+      const filtered = cpsOnly.filter(m => {
+        if(q && !(m.name.toLowerCase().includes(q) || (m.id||'').toLowerCase().includes(q))) return false;
+        if(stat && m.status !== stat) return false;
+        return true;
+      });
+      renderList(filtered);
+    }
+
+    searchInput.addEventListener('input', applyFilters);
+    filterStatus.addEventListener('change', applyFilters);
+
+    // modal logic
+    const modal = document.getElementById('modal');
+    const closeModalBtn = document.getElementById('closeModal');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+
+    function openModal(member) {
+      document.getElementById('modalName').textContent = member.name;
+      document.getElementById('modalPhoto').src = member.photo;
+      document.getElementById('modalNamaFull').textContent = member.name;
+      document.getElementById('modalId').textContent = member.id || '-';
+      document.getElementById('modalProgram').textContent = member.program;
+      document.getElementById('modalStatus').textContent = member.status;
+      document.getElementById('modalCity').textContent = member.city || '-';
+      document.getElementById('modalEmail').textContent = member.email || '-';
+      document.getElementById('modalPhone').textContent = member.phone || '-';
+      document.getElementById('modalNotes').textContent = member.notes || '-';
+      document.getElementById('modalContactBtn').href = `mailto:${member.email}`;
+      modal.classList.remove('hidden'); modal.classList.add('flex'); document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal() { modal.classList.add('hidden'); modal.classList.remove('flex'); document.body.style.overflow = ''; }
+    closeModalBtn.addEventListener('click', closeModal);
+    modalCloseBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e) => { if(e.target === modal) closeModal(); });
+
+    // export CSV (exports currently visible)
+    function exportCSV(data) {
+      const headers = ['id','name','program','status','city','email','phone','notes'];
+      const rows = data.map(m => headers.map(h => `"${(m[h]||'').toString().replace(/"/g,'""')}"`).join(','));
+      const csv = [headers.join(','), ...rows].join('\n');
+      const blob = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `members-cps-${new Date().toISOString().slice(0,10)}.csv`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    document.getElementById('exportCsv').addEventListener('click', () => {
+      const q = searchInput.value.trim().toLowerCase();
+      const stat = filterStatus.value;
+      const filtered = cpsOnly.filter(m => {
+        if(q && !(m.name.toLowerCase().includes(q) || (m.id||'').toLowerCase().includes(q))) return false;
+        if(stat && m.status !== stat) return false;
+        return true;
+      });
+      exportCSV(filtered);
+    });
+
+    /* -------------------------------
+       Testimonial slider logic
+       ------------------------------- */
+    const testimonials = document.querySelectorAll('.testimonial-item');
+    const prevButton = document.getElementById('prev-testimonial');
+    const nextButton = document.getElementById('next-testimonial');
+    let currentTestimonial = 0;
+
+    function showTestimonial(index) {
+      testimonials.forEach((item, i) => item.classList.toggle('active', i === index));
+    }
+    function nextTestimonial() {
+      currentTestimonial = (currentTestimonial < testimonials.length - 1) ? currentTestimonial + 1 : 0;
+      showTestimonial(currentTestimonial);
+    }
+    prevButton?.addEventListener('click', () => {
+      currentTestimonial = (currentTestimonial > 0) ? currentTestimonial - 1 : testimonials.length - 1;
+      showTestimonial(currentTestimonial);
+    });
+    nextButton?.addEventListener('click', nextTestimonial);
+    setInterval(nextTestimonial, 6000);
+
+    // initial show
+    showTestimonial(0);
+  </script>
+</body>
+</html>

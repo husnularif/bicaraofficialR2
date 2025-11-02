@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Peserta — Public Speaking Certification (C.PS)</title>
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    :root{
+      --brand-blue: #0A2E5D;
+      --brand-gold: #FFD700;
+      --brand-red: #C0392B;
+      --brand-light: #FDFDFD;
+    }
+    body{font-family: 'Poppins', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;}
+    .photo-cover { aspect-ratio: 4/3; object-fit: cover; width: 100%; border-radius: .5rem; }
+    /* small tweaks */
+    .card-focus:focus { outline: 2px solid rgba(10,46,93,0.12); outline-offset: 4px; }
+  </style>
+</head>
+<body class="bg-brand-light text-gray-900">
+
+  <!-- Header -->
+  <header class="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b">
+    <div class="container mx-auto px-6 py-3 flex items-center justify-between">
+      <a href="index.html" class="flex items-center gap-3">
+        <img src="LOGO.png" alt="Logo" class="h-10">
+        <span class="font-semibold text-brand-blue">Bicara Official</span>
+      </a>
+
+      <nav class="hidden md:flex gap-6 items-center">
+        <a href="index.html" class="text-gray-700 hover:text-brand-gold">Beranda</a>
+        <a href="index.html#programs" class="text-gray-700 hover:text-brand-gold">Program</a>
+        <a href="members_cps.html" class="text-brand-blue font-semibold">Peserta C.PS</a>
+        <a href="index.html#contact" class="ml-4 bg-gradient-to-r from-orange-500 to-red-600 text-white px-4 py-2 rounded-full">Hubungi Kami</a>
+      </nav>
+
+      <div class="md:hidden">
+        <button id="mobileBtn" class="p-2">
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- spacer -->
+  <div class="h-20"></div>
+
+  <!-- Hero -->
+  <section class="bg-brand-blue text-white py-14">
+    <div class="container mx-auto px-6 text-center">
+      <h1 class="text-3xl md:text-4xl font-bold">Peserta — Public Speaking Certification (C.PS)</h1>
+      <p class="mt-3 text-gray-100 max-w-2xl mx-auto">Daftar resmi peserta program Public Speaking Certification. Cari, filter status, lihat detail, dan ekspor data peserta.</p>
+    </div>
+  </section>
+
+  <!-- Controls -->
+  <section class="container mx-auto px-6 mt-8">
+    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <div class="flex gap-3 items-center">
+        <input id="searchInput" type="search" placeholder="Cari nama atau ID peserta..." class="px-4 py-2 rounded-lg border w-72 focus:outline-none focus:ring-2 focus:ring-brand-blue" />
+        <!-- Program filter dihilangkan karena halaman ini khusus C.PS -->
+        <select id="filterStatus" class="px-3 py-2 rounded-lg border focus:outline-none">
+          <option value="">Semua Status</option>
+          <option value="aktif">Aktif</option>
+          <option value="lulus">Lulus</option>
+          <option value="tidak-lulus">Tidak Lulus</option>
+        </select>
+      </div>
+
+      <div class="flex gap-3 items-center">
+        <button id="exportCsv" class="bg-brand-blue text-white px-4 py-2 rounded-lg hover:opacity-90">Export CSV</button>
+        <a href="public_speaking.html" class="bg-brand-gold text-brand-blue px-4 py-2 rounded-lg font-medium">Kembali ke Program</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Members grid -->
+  <section class="container mx-auto px-6 py-8">
+    <div id="membersGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div>
+    <div id="emptyState" class="hidden text-center py-12 text-gray-500">Tidak ada peserta yang ditemukan.</div>
+  </section>
+
+  <!-- Modal detail -->
+  <div id="modal" class="fixed inset-0 bg-black/60 hidden items-center justify-center z-50">
+    <div class="bg-white rounded-xl max-w-2xl w-full mx-4 overflow-hidden">
+      <div class="flex items-center justify-between p-4 border-b">
+        <h3 id="modalName" class="text-lg font-semibold"></h3>
+        <button id="closeModal" class="p-1.5"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+      <div class="p-6 grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="md:col-span-1">
+          <img id="modalPhoto" src="" alt="Foto Peserta" class="w-full rounded-md object-cover h-56">
+        </div>
+        <div class="md:col-span-2">
+          <dl class="grid grid-cols-1 gap-3 text-gray-700">
+            <div><dt class="font-semibold">Nama</dt><dd id="modalNamaFull"></dd></div>
+            <div><dt class="font-semibold">NIM / ID</dt><dd id="modalId"></dd></div>
+            <div><dt class="font-semibold">Program</dt><dd id="modalProgram"></dd></div>
+            <div><dt class="font-semibold">Status</dt><dd id="modalStatus"></dd></div>
+            <div><dt class="font-semibold">Kota</dt><dd id="modalCity"></dd></div>
+            <div><dt class="font-semibold">Email</dt><dd id="modalEmail"></dd></div>
+            <div><dt class="font-semibold">Telepon</dt><dd id="modalPhone"></dd></div>
+            <div><dt class="font-semibold">Catatan</dt><dd id="modalNotes"></dd></div>
+          </dl>
+        </div>
+      </div>
+      <div class="flex justify-end gap-3 p-4 border-t">
+        <a id="modalContactBtn" href="#" class="bg-brand-blue text-white px-4 py-2 rounded-md">Hubungi</a>
+        <button id="modalCloseBtn" class="px-4 py-2 rounded-md border">Tutup</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="bg-white border-t mt-12 py-8">
+    <div class="container mx-auto px-6 text-center text-sm text-gray-600">
+      &copy; 2025 Bicara Official Indonesia — Peserta C.PS
+    </div>
+  </footer>
+
+  <script>
+    // DATA: masukkan hanya peserta yang mengikuti Public Speaking Certification (C.PS)
+    // Jika kamu menyimpan semua peserta di satu file, pastikan property program bernilai:
+    // "Public Speaking Certification (C.PS)" untuk peserta C.PS
+    const membersData = [
+      {
+        id: "CPS-001",
+        name: "Aisha Kamilia",
+        program: "Public Speaking Certification (C.PS)",
+        status: "aktif",
+        city: "Medan",
+        email: "aisha@example.com",
+        phone: "+62 812-0000-0001",
+        photo: "foto/members/aisha.jpg",
+        notes: "Peserta unggulan batch 1"
+      },
+      {
+        id: "CPS-002",
+        name: "Budi Santoso",
+        program: "Public Speaking Certification (C.PS)",
+        status: "lulus",
+        city: "Jakarta",
+        email: "budi@example.com",
+        phone: "+62 812-0000-0002",
+        photo: "foto/members/budi.jpg",
+        notes: "Lulus dengan predikat sangat baik"
+      },
+      // tambahkan peserta C.PS lainnya di sini...
+    ];
+
+    // helper
+    const $ = v => document.querySelector(v);
+    const grid = document.getElementById('membersGrid');
+    const emptyState = document.getElementById('emptyState');
+
+    // hanya gunakan peserta C.PS
+    const cpsOnly = membersData.filter(m => m.program === "Public Speaking Certification (C.PS)");
+
+    function createCard(member) {
+      const a = document.createElement('article');
+      a.className = 'bg-white rounded-xl p-4 shadow hover:shadow-lg transition cursor-pointer flex flex-col card-focus';
+      a.setAttribute('tabindex', '0');
+
+      const imgWrap = document.createElement('div');
+      imgWrap.className = 'mb-3 overflow-hidden rounded-md';
+      const img = document.createElement('img');
+      img.src = member.photo;
+      img.alt = member.name;
+      img.className = 'photo-cover';
+      imgWrap.appendChild(img);
+
+      const name = document.createElement('h3');
+      name.className = 'font-semibold text-lg text-brand-blue mb-1';
+      name.textContent = member.name;
+
+      const meta = document.createElement('p');
+      meta.className = 'text-sm text-gray-600 mb-2';
+      meta.textContent = `${member.program} • ${member.city}`;
+
+      const status = document.createElement('div');
+      status.className = 'mt-auto flex items-center justify-between gap-2';
+      const badge = document.createElement('span');
+      badge.className = 'inline-flex items-center px-2 py-1 rounded-full text-xs font-medium';
+      if(member.status === 'aktif') {
+        badge.classList.add('bg-green-100','text-green-800');
+        badge.textContent = 'Aktif';
+      } else if(member.status === 'lulus') {
+        badge.classList.add('bg-indigo-100','text-indigo-800');
+        badge.textContent = 'Lulus';
+      } else {
+        badge.classList.add('bg-red-100','text-red-800');
+        badge.textContent = 'Tidak Lulus';
+      }
+
+      const viewBtn = document.createElement('button');
+      viewBtn.className = 'text-sm text-brand-blue underline';
+      viewBtn.textContent = 'Lihat Detail';
+      viewBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        openModal(member);
+      });
+
+      a.appendChild(imgWrap);
+      a.appendChild(name);
+      a.appendChild(meta);
+      status.appendChild(badge);
+      status.appendChild(viewBtn);
+      a.appendChild(status);
+
+      a.addEventListener('click', () => openModal(member));
+      a.addEventListener('keydown', (ev) => { if(ev.key === 'Enter') openModal(member); });
+
+      return a;
+    }
+
+    function renderList(data) {
+      grid.innerHTML = '';
+      if(!data.length) {
+        emptyState.classList.remove('hidden');
+        grid.classList.add('hidden');
+        return;
+      }
+      emptyState.classList.add('hidden');
+      grid.classList.remove('hidden');
+      const frag = document.createDocumentFragment();
+      data.forEach(m => frag.appendChild(createCard(m)));
+      grid.appendChild(frag);
+    }
+
+    // initial render (only C.PS)
+    renderList(cpsOnly);
+
+    // search & status filter (works within C.PS participants)
+    const searchInput = document.getElementById('searchInput');
+    const filterStatus = document.getElementById('filterStatus');
+
+    function applyFilters() {
+      const q = searchInput.value.trim().toLowerCase();
+      const stat = filterStatus.value;
+      const filtered = cpsOnly.filter(m => {
+        if(q && !(m.name.toLowerCase().includes(q) || (m.id||'').toLowerCase().includes(q))) return false;
+        if(stat && m.status !== stat) return false;
+        return true;
+      });
+      renderList(filtered);
+    }
+
+    searchInput.addEventListener('input', applyFilters);
+    filterStatus.addEventListener('change', applyFilters);
+
+    // modal logic
+    const modal = document.getElementById('modal');
+    const closeModalBtn = document.getElementById('closeModal');
+    const modalCloseBtn = document.getElementById('modalCloseBtn');
+
+    function openModal(member) {
+      $('#modalName').textContent = member.name;
+      $('#modalPhoto').src = member.photo;
+      $('#modalNamaFull').textContent = member.name;
+      $('#modalId').textContent = member.id || '-';
+      $('#modalProgram').textContent = member.program;
+      $('#modalStatus').textContent = member.status;
+      $('#modalCity').textContent = member.city || '-';
+      $('#modalEmail').textContent = member.email || '-';
+      $('#modalPhone').textContent = member.phone || '-';
+      $('#modalNotes').textContent = member.notes || '-';
+      $('#modalContactBtn').href = `mailto:${member.email}`;
+      modal.classList.remove('hidden'); modal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeModal(){ modal.classList.add('hidden'); modal.classList.remove('flex'); document.body.style.overflow = ''; }
+    closeModalBtn.addEventListener('click', closeModal);
+    modalCloseBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', (e)=> { if(e.target === modal) closeModal(); });
+
+    // export CSV (exports currently visible list)
+    function exportCSV(data) {
+      const headers = ['id','name','program','status','city','email','phone','notes'];
+      const rows = data.map(m => headers.map(h => `"${(m[h]||'').toString().replace(/"/g,'""')}"`).join(','));
+      const csv = [headers.join(','), ...rows].join('\n');
+      const blob = new Blob([csv], {type: 'text/csv;charset=utf-8;'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url;
+      a.download = `members-cps-${new Date().toISOString().slice(0,10)}.csv`;
+      a.click(); URL.revokeObjectURL(url);
+    }
+
+    document.getElementById('exportCsv').addEventListener('click', () => {
+      const q = searchInput.value.trim().toLowerCase();
+      const stat = filterStatus.value;
+      const filtered = cpsOnly.filter(m => {
+        if(q && !(m.name.toLowerCase().includes(q) || (m.id||'').toLowerCase().includes(q))) return false;
+        if(stat && m.status !== stat) return false;
+        return true;
+      });
+      exportCSV(filtered);
+    });
+
+    // init lucide icons
+    try { lucide.createIcons(); } catch(e){}
+  </script>
+</body>
+</html>

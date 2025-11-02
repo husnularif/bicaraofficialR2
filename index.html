@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bicara Official Indonesia</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Google Fonts: Poppins & Montserrat -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        /* Color Palette: Blue, Gold, Red */
+        :root {
+            --brand-blue: #0A2E5D; 
+            --brand-gold: #FFD700; 
+            --brand-red: #C0392B;
+            --brand-light: #FDFDFD;
+            --brand-gray: #F5F5F5;
+            --brand-dark-text: #171717;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--brand-light);
+            color: var(--brand-dark-text);
+        }
+        .font-montserrat {
+            font-family: 'Montserrat', sans-serif;
+        }
+        .bg-brand-blue { background-color: var(--brand-blue); }
+        .text-brand-blue { color: var(--brand-blue); }
+        .bg-brand-gold { background-color: var(--brand-gold); }
+        .text-brand-gold { color: var(--brand-gold); }
+        .border-brand-gold { border-color: var(--brand-gold); }
+        .bg-brand-red { background-color: var(--brand-red); }
+        .text-brand-red { color: var(--brand-red); }
+        .border-brand-red { border-color: var(--brand-red); }
+        .bg-brand-gray { background-color: var(--brand-gray); }
+
+        /* Animation for elements on scroll */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Header transition styles */
+        #header {
+            transition: background-color 0.4s ease-in-out, box-shadow 0.4s ease-in-out, color 0.4s ease-in-out;
+            color: white; /* Default text color for header */
+        }
+        #header.scrolled {
+            background-color: rgba(253, 253, 253, 0.9);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.07);
+            color: var(--brand-blue); /* Text color when scrolled */
+        }
+        #header .nav-link {
+            color: inherit; /* Inherit color from parent #header */
+        }
+        #header.scrolled .nav-link {
+            color: var(--brand-dark-text);
+        }
+        #header.scrolled .nav-link:hover {
+            color: var(--brand-red);
+        }
+        #header .nav-link:hover {
+            color: var(--brand-gold);
+        }
+        #header.scrolled .logo-text {
+            color: var(--brand-blue);
+        }
+        
+        /* Active nav link style */
+        .nav-link.active {
+            font-weight: 600;
+            color: var(--brand-gold) !important;
+        }
+        #header.scrolled .nav-link.active {
+            color: var(--brand-red) !important;
+        }
+
+        /* Testimonial slider transitions */
+        .testimonial-item {
+            transition: opacity 0.5s ease-in-out;
+            position: absolute;
+            width: 100%;
+        }
+        .testimonial-item:not(.active) {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        /* Bento Grid Item Hover Effect */
+        .bento-item {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .bento-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+        }
+
+        /* Animated scroll down indicator */
+        .scroll-down {
+            border: 2px solid white;
+            width: 24px;
+            height: 40px;
+            border-radius: 12px;
+            position: relative;
+        }
+        .scroll-down::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 8px;
+            width: 4px;
+            height: 8px;
+            background: white;
+            border-radius: 2px;
+            transform: translateX(-50%);
+            animation: scroll-animation 2s infinite;
+        }
+        @keyframes scroll-animation {
+            0% { opacity: 1; top: 8px; }
+            50% { opacity: 0; top: 20px; }
+            100% { opacity: 1; top: 8px; }
+        }
+    </style>
+</head>
+<body class="text-gray-800">
+
+    <!-- Header Section -->
+    <header id="header" class="fixed top-0 left-0 right-0 z-50">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+           <a href="#" class="logo-text">
+                <img src="LOGO.png" alt="Logo Bicara.ID" class="h-12">
+            </a>
+
+            <nav class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="nav-link transition-colors duration-300">Home</a>
+                <a href="#profile" class="nav-link transition-colors duration-300">Tentang Kami</a>
+                <a href="#programs" class="nav-link transition-colors duration-300">Program</a>
+                <a href="#testimonials" class="nav-link transition-colors duration-300">Testimoni</a>
+                <a href="#contact" class="nav-link transition-colors duration-300">Kontak</a>
+            </nav>
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="focus:outline-none">
+                    <i data-lucide="menu" class="w-7 h-7"></i>
+                </button>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-brand-light pb-4">
+            <a href="#home" class="block text-center py-3 text-gray-700 hover:bg-gray-100">Home</a>
+            <a href="#profile" class="block text-center py-3 text-gray-700 hover:bg-gray-100">Tentang Kami</a>
+            <a href="#programs" class="block text-center py-3 text-gray-700 hover:bg-gray-100">Program</a>
+            <a href="#testimonials" class="block text-center py-3 text-gray-700 hover:bg-gray-100">Testimoni</a>
+            <a href="#contact" class="block text-center py-3 text-gray-700 hover:bg-gray-100">Kontak</a>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main>
+
+        <!-- Hero Section -->
+        <section id="home" class="relative h-screen flex items-center justify-center text-white text-center bg-cover bg-center" style="background-image:url(FotoBackground.jpg);">
+            <!-- Dark Overlay for text readability -->
+            <div class="absolute inset-0 bg-black/60"></div>
+            <div class="relative z-10 container mx-auto px-6">
+                <h1 class="text-4xl md:text-6xl font-extrabold font-montserrat leading-tight mb-6">
+                    <span class="reveal" style="transition-delay: 0.2s;">Selamat<span class="text-brand-gold">Datang</span></span><br>
+                    <span class="reveal" style="transition-delay: 0.4s;">di Bicara <span class="text-brand-gold">Official</span></span><br>
+                    <span class="reveal" style="transition-delay: 0.6s;">Indonesia <span class="text-brand-gold">.</span></span>
+                </h1>
+                <p class="reveal text-lg md:text-xl max-w-3xl mx-auto mb-10 text-gray-200" style="transition-delay: 0.6s;">
+                    Bicara Official Indonesia hadir untuk mengasah kemampuan komunikasi, kepemimpinan, dan kolaborasi anak muda Indonesia. Kami percaya bahwa setiap suara berharga, setiap ide layak diperjuangkan, dan setiap langkah kecil dapat membawa perubahan besar.”
+
+                </p>
+                <div class="reveal flex flex-col sm:flex-row justify-center items-center gap-4 mt-10" style="transition-delay: 0.8s;">
+                    <a href="#contact" class="bg-brand-red text-white font-bold py-3 px-8 rounded-full text-lg hover:opacity-90 transition-all transform hover:scale-105 duration-300 shadow-lg">
+                        Daftar Sekarang
+                    </a>
+                    <a href="#programs" class="bg-transparent border-2 border-brand-gold text-white font-bold py-3 px-8 rounded-full text-lg hover:bg-brand-gold hover:text-brand-blue transition-all duration-300">
+                        Lihat Program
+                    </a>
+                </div>
+            </div>
+            <div class="absolute bottom-8 left-1/2 -translate-x-1/2">
+                <a href="#profile" aria-label="Scroll down">
+                    <div class="scroll-down"></div>
+                </a>
+            </div>
+        </section>
+
+        <!-- Profile (Tentang Kami) Section -->
+        <section id="profile" class="py-24 bg-brand-light">
+            <div class="container mx-auto px-6">
+                 <div class="grid lg:grid-cols-2 gap-16 items-center">
+                    <div class="reveal">
+                        <h2 class="text-4xl font-bold font-montserrat text-brand-blue mb-6">Lebih dari Sekadar Public Speaking.</h2>
+                        <p class="text-gray-600 leading-relaxed mb-8">
+                            Bicara Official Indonesia adalah rumah bagi para calon pemimpin masa depan. Kami percaya bahwa kemampuan berbicara dengan percaya diri adalah kunci untuk membuka setiap pintu kesempatan. Sejak didirikan, kami telah berkomitmen untuk menciptakan ekosistem pengembangan diri yang suportif, modern, dan berdampak bagi ribuan anak muda di seluruh Indonesia.
+                        </p>
+                        <div class="space-y-8 text-gray-600 leading-relaxed">
+                            <div>
+                                <h3 class="font-bold text-2xl text-brand-blue mb-3 flex items-center">
+                                    <i data-lucide="flag" class="w-7 h-7 mr-3 text-brand-red"></i> Visi Kami
+                                </h3>
+                                <p class="pl-10">"Lembaga Pendidikan Terdepan Melahirkan 1.000 Pembicara Profesional dan Pusat Pengembangan Diri Di Indonesia Tahun 2030"</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="reveal" style="transition-delay: 0.2s;">
+                        <div>
+                            <h3 class="font-bold text-2xl text-brand-blue mb-4 flex items-center">
+                                <i data-lucide="check-circle-2" class="w-7 h-7 mr-3 text-brand-red"></i> Misi Kami
+                            </h3>
+                            <ol class="space-y-4">
+                                <li class="flex items-start">
+                                    <span class="bg-brand-red text-white rounded-full w-6 h-6 text-sm flex items-center justify-center mr-4 mt-1 flex-shrink-0">1</span>
+                                    <span>Mengembangkan Sistem dan Metode Pelatihan yang Modern dan penuh dengan wawasan.</span>
+                                </li>
+                                 <li class="flex items-start">
+                                    <span class="bg-brand-red text-white rounded-full w-6 h-6 text-sm flex items-center justify-center mr-4 mt-1 flex-shrink-0">2</span>
+                                    <span>Meningkatkan Kualitas Sumber Daya Pelatihan sesuai dengan kebutuhan anak muda sekarang.</span>
+                                </li>
+                                 <li class="flex items-start">
+                                    <span class="bg-brand-red text-white rounded-full w-6 h-6 text-sm flex items-center justify-center mr-4 mt-1 flex-shrink-0">3</span>
+                                    <span>Melaksanakan pelatihan untuk anak muda dari Sabang - Merauke.</span>
+                                </li>
+                                 <li class="flex items-start">
+                                    <span class="bg-brand-red text-white rounded-full w-6 h-6 text-sm flex items-center justify-center mr-4 mt-1 flex-shrink-0">4</span>
+                                    <span>Menumbuhkan kualitas anak muda agar memiliki daya saing yang tinggi.</span>
+                                </li>
+                                 <li class="flex items-start">
+                                    <span class="bg-brand-red text-white rounded-full w-6 h-6 text-sm flex items-center justify-center mr-4 mt-1 flex-shrink-0">5</span>
+                                    <span>Memberi Ruang untuk anak muda bertumbuh dan berkembang setiap daerah di Indonesia.</span>
+                                </li>
+                            </ol>
+                        </div>
+                    </div>
+                 </div>
+            </div>
+        </section>
+
+        <!-- Programs Section (Bento Grid) -->
+     <section id="programs" class="py-16 bg-brand-gray">
+  <div class="container mx-auto px-6">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl md:text-4xl font-bold text-brand-blue">Program yang Mengubah Hidup</h2>
+      <p class="text-gray-600 mt-4 max-w-2xl mx-auto">Dirancang untuk setiap tahap perjalananmu, dari pemula hingga profesional.</p>
+      <div class="w-24 h-1 bg-brand-red mx-auto mt-4"></div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Card 1 -->
+      
+      <a href="Bicara_GTS.html" class="block bg-brand-blue text-white p-6 rounded-2xl text-center shadow-md hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-4 focus:ring-brand-red" aria-label="Beasiswa Bicara — buka halaman">
+        <img src="foto/1.bicara_GTS.png" alt="Beasiswa Bicara Logo" class="mx-auto w-16 h-16 mb-4" width="512" height="512">
+        <h3 class="font-semibold">Bicara Goes To School</h3>
+      </a>
+
+      <!-- Card 2 -->
+      <a href="Bicara_GTC.html" class="block bg-brand-blue text-white p-6 rounded-2xl text-center shadow-md hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-4 focus:ring-brand-red" aria-label="Bicara Academy — buka halaman">
+        <img src="foto/2.Bicara_GTC.png" alt="Bicara Academy Logo" class="mx-auto w-16 h-16 mb-4" width="512" height="512">
+        <h3 class="font-semibold">Bicara Goes To Campus</h3>
+      </a>
+
+      <!-- Card 3 -->
+      <a href="public_speaking.html" class="block bg-brand-blue text-white p-6 rounded-2xl text-center shadow-md hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-4 focus:ring-brand-red" aria-label="Youth Academy — buka halaman">
+        <img src="foto/3.ps.png" alt="Youth Academy Logo" class="mx-auto w-16 h-16 mb-4" width="512" height="512">
+        <h3 class="font-semibold">Public Speaking Certification</h3>
+      </a>
+
+      <!-- Card 4 -->
+      <a href="bicara_academy.html" class="block bg-brand-blue text-white p-6 rounded-2xl text-center shadow-md hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-4 focus:ring-brand-red" aria-label="Beasiswa Bicara — buka halaman">
+        <img src="foto/6.bai.png" alt="Beasiswa Bicara Logo" class="mx-auto w-16 h-16 mb-4" width="512" height="512">
+        <h3 class="font-semibold">Bicara Academy Indonesia</h3>
+      </a>
+      <!-- Card 5 -->
+      <a href="YAI.html" class="block bg-brand-blue text-white p-6 rounded-2xl text-center shadow-md hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-4 focus:ring-brand-red" aria-label="Public Speaking Certification — buka halaman">
+        <img src="foto/4.yai.png" alt="Public Speaking Certification Logo" class="mx-auto w-16 h-16 mb-4" width="512" height="512">
+        <h3 class="font-semibold">Youth Academy Indonesia</h3>
+      </a>
+       <!-- Card 6 -->
+      <a href="bba.html" class="block bg-brand-blue text-white p-6 rounded-2xl text-center shadow-md hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-4 focus:ring-brand-red" aria-label="Beasiswa Bicara — buka halaman">
+        <img src="foto/5.bbo.png" alt="Beasiswa Bicara Logo" class="mx-auto w-16 h-16 mb-4" width="512" height="512">
+        <h3 class="font-semibold">Beasiswa Bicara Official<br>Indonesia</h3>
+      </a>
+       <!-- Card 7 -->
+      <a href="Beasiswa_PS.html" class="block bg-brand-blue text-white p-6 rounded-2xl text-center shadow-md hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-4 focus:ring-brand-red" aria-label="Public Speaking Certification — buka halaman">
+        <img src="foto/Beasiswa_ps.png" alt="Public Speaking Certification Logo" class="mx-auto w-16 h-16 mb-4" width="512" height="512">
+        <h3 class="font-semibold">Beasiswa Public Speaking</h3>
+      </a>
+       <!-- Card 8 -->
+      <a href="Karya Bersama.html" class="block bg-brand-blue text-white p-6 rounded-2xl text-center shadow-md hover:scale-105 transition-transform duration-300 focus:outline-none focus:ring-4 focus:ring-brand-red" aria-label="Beasiswa Bicara — buka halaman">
+        <img src="foto/karya_bersama.png" alt="Beasiswa Bicara Logo" class="mx-auto w-16 h-16 mb-4" width="512" height="512">
+        <h3 class="font-semibold">Karya Bersama</h3>
+      </a>
+      
+    </div>
+  </div>
+</section>
+
+
+
+        <!-- Testimonials Section -->
+        <section id="testimonials" class="py-24 bg-brand-blue text-white overflow-hidden">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="reveal text-4xl font-bold font-montserrat">Kisah Sukses dari Alumni Kami</h2>
+                    <p class="reveal text-gray-300 mt-4 max-w-2xl mx-auto">Mereka telah membuktikannya. Sekarang giliran Anda.</p>
+                    <div class="reveal w-32 h-1 bg-brand-gold mx-auto mt-4"></div>
+                </div>
+                
+                <div class="relative max-w-3xl mx-auto h-80 reveal">
+                    <!-- Testimonial Items -->
+                    <div id="testimonial-slider">
+                        <div class="testimonial-item active">
+                            <div class="bg-blue-900/30 backdrop-blur-md p-8 rounded-2xl text-center border border-white/20">
+                                <img src="https://placehold.co/100x100/FFD700/0A2E5D?text=AK" alt="Foto Alumni 1" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-brand-gold">
+                                <p class="text-lg italic mb-4">"Program ini benar-benar mengubah cara saya memandang diri sendiri. Saya jadi jauh lebih berani dan percaya diri!"</p>
+                                <h4 class="font-bold text-xl text-brand-gold">Aisha Kamilia</h4>
+                                <p class="text-gray-300">Alumni Bicara Academy 2024</p>
+                            </div>
+                        </div>
+                        <div class="testimonial-item">
+                           <div class="bg-blue-900/30 backdrop-blur-md p-8 rounded-2xl text-center border border-white/20">
+                                <img src="https://placehold.co/100x100/FFD700/0A2E5D?text=BS" alt="Foto Alumni 2" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-brand-gold">
+                                <p class="text-lg italic mb-4">"Materi yang diberikan sangat praktis dan relevan. Mentornya juga luar biasa suportif. Highly recommended!"</p>
+                                <h4 class="font-bold text-xl text-brand-gold">Budi Santoso</h4>
+                                <p class="text-gray-300">Alumni Public Speaking Certification 2023</p>
+                            </div>
+                        </div>
+                        <div class="testimonial-item">
+                           <div class="bg-blue-900/30 backdrop-blur-md p-8 rounded-2xl text-center border border-white/20">
+                                <img src="https://placehold.co/100x100/FFD700/0A2E5D?text=CL" alt="Foto Alumni 3" class="w-24 h-24 rounded-full mx-auto mb-4 border-4 border-brand-gold">
+                                <p class="text-lg italic mb-4">"Saya tidak hanya belajar public speaking, tapi juga leadership dan networking. Sangat bermanfaat untuk karier saya."</p>
+                                <h4 class="font-bold text-xl text-brand-gold">Citra Lestari</h4>
+                                <p class="text-gray-300">Alumni Youth Power Community</p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Slider Controls -->
+                    <button id="prev-testimonial" class="absolute top-1/2 left-0 -translate-y-1/2 -translate-x-4 md:-translate-x-12 bg-white/20 p-2 rounded-full hover:bg-white/40 transition-colors">
+                        <i data-lucide="chevron-left" class="w-6 h-6 text-white"></i>
+                    </button>
+                    <button id="next-testimonial" class="absolute top-1/2 right-0 -translate-y-1/2 translate-x-4 md:translate-x-12 bg-white/20 p-2 rounded-full hover:bg-white/40 transition-colors">
+                        <i data-lucide="chevron-right" class="w-6 h-6 text-white"></i>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-brand-blue text-white pt-20 pb-8">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-12">
+                <!-- About -->
+                <div class="lg:col-span-2">
+                    <h3 class="text-2xl font-bold font-montserrat mb-4"><img src="LOGO.png" alt="Logo Bicara.ID" class="h-12"></h3>
+                    <p class="text-gray-400 leading-relaxed max-w-md">Website Resmi Bicara Official Indonesia
+Lembaga Pelatihan Public Speaking & Pengembangan Diri. Berkontribusi dari Sabang - Merauke.</p>
+                </div>
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Jelajahi</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#profile" class="text-gray-400 hover:text-brand-gold transition-colors">Tentang Kami</a></li>
+                        <li><a href="#programs" class="text-gray-400 hover:text-brand-gold transition-colors">Program</a></li>
+                        <li><a href="#testimonials" class="text-gray-400 hover:text-brand-gold transition-colors">Testimoni</a></li>
+                    </ul>
+                </div>
+                <!-- Contact -->
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Hubungi Kami</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-center"><i data-lucide="phone" class="w-5 h-5 mr-3 text-brand-gold"></i><a href="#" class="text-gray-400 hover:text-brand-gold">0822 2745 5736 </a></li>
+                        <li class="flex items-center"><i data-lucide="instagram" class="w-5 h-5 mr-3 text-brand-gold"></i><a href="#" class="text-gray-400 hover:text-brand-gold">@bicaraofficial</a></li>
+                        <li class="flex items-center"><i data-lucide="mail" class="w-5 h-5 mr-3 text-brand-gold"></i><a href="#" class="text-gray-400 hover:text-brand-gold">bicaraofficial17@gmail.com</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-6 text-center text-gray-500">
+                <p>&copy; 2025 Bicara Official Indonesia. Didesain dengan ❤️ untuk Generasi Emas Indonesia.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+        
+        // --- INTERACTIVITY SCRIPT ---
+
+        // Header Scroll Effect
+        const header = document.getElementById('header');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // Mobile Menu Toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.1 });
+        revealElements.forEach(el => revealObserver.observe(el));
+
+        // Active Nav Link on Scroll
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const sectionObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href').substring(1) === entry.target.id) {
+                            link.classList.add('active');
+                        }
+                    });
+                }
+            });
+        }, { rootMargin: '-50% 0px -50% 0px' });
+        sections.forEach(sec => sectionObserver.observe(sec));
+
+
+        // Testimonial Slider Logic
+        const testimonials = document.querySelectorAll('.testimonial-item');
+        const prevButton = document.getElementById('prev-testimonial');
+        const nextButton = document.getElementById('next-testimonial');
+        let currentTestimonial = 0;
+
+        function showTestimonial(index) {
+            testimonials.forEach((item, i) => {
+                item.classList.toggle('active', i === index);
+            });
+        }
+
+        function next() {
+            currentTestimonial = (currentTestimonial < testimonials.length - 1) ? currentTestimonial + 1 : 0;
+            showTestimonial(currentTestimonial);
+        }
+
+        prevButton.addEventListener('click', () => {
+            currentTestimonial = (currentTestimonial > 0) ? currentTestimonial - 1 : testimonials.length - 1;
+            showTestimonial(currentTestimonial);
+        });
+        nextButton.addEventListener('click', next);
+
+        // Auto-slide testimonials
+        setInterval(next, 5000); // Change testimonial every 5 seconds
+        
+    </script>
+</body>
+</html>
